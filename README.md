@@ -4,6 +4,8 @@
 # 前提需要
 
 你需要下载该仓库 [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/), 并且 解压 `static/panorama/images` 至 `src/public/images` 文件夹。
+大小约在`1.16GB`左右。
+至于图片本地化的原因，别无他，因为Github加载缓慢，所以选择了本地化。
 
 # 截图
 
