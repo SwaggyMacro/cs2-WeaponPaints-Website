@@ -1,15 +1,33 @@
-# 前言
-此项目仅为[cs2-WeaponPaints-website](https://github.com/L1teD/cs2-WeaponPaints-website)的`修改版本`，进行了皮肤图片本地化以及完整的汉化，并添加`修改手套`支持，以及优化原有的请求部分 [Prevent an abundance of redundant requests about JSON files.](https://github.com/L1teD/cs2-WeaponPaints-website/pull/12)，原项目会疯狂的进行几十次乃至上百次的请求皮肤武器的JSON文件。
+<p align="center">
+    <img src="https://github.com/SwaggyMacro/TgStoGifBot/raw/master/images/img_3.gif" width="256px">
 
-# 前提需要
+</p>
+<p align="center">
+    <a href="README_cn.md"><img src="https://img.shields.io/badge/语言-简体中文-red"></a>
+    <a href="README.md"><img src="https://img.shields.io/badge/LANG-ENGLISH-blue"></a>
+</p>
 
-你需要下载该仓库 [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/), 并且 解压 `static/panorama/images` 至 `src/public/images` 文件夹。
-大小约在`1.16GB`左右。
-至于图片本地化的原因，别无他，因为Github加载缓慢，所以选择了本地化。
+## 🗣️Preface
+----
+This repo is a **`modified version`** of [cs2-WeaponPaints-website](https://github.com/L1teD/cs2-WeaponPaints-website), which has localized skin images(Chinese Language Only) and complete Chinese translation, as well as added support for **`glove change`**, and optimized the original request part [Prevent an abundance of redundant requests about JSON files.](https://github.com/L1teD/cs2-WeaponPaints-website/pull/12), the original project will make dozens of requests for JSON files of skin weapons.
 
-# 截图
+Btw, the original project got a private plan, You guys can donate to the original author to get the private plan. The private plan has more features like `gloves change`, workshop(Idk what's this, It seems like a backend that can be used to manage the user's skins, but I'm not sure about this.).
 
-全皮肤、刀、手套插件 使用 **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints/)**
+**This repo is a modified version, which adds the function of changing gloves to the `public` version of the original project and some optimizations. If you need the private plan, Please go to the original author's repository.**
+
+## 📝Before Start
+----
+**You can step out of this section if you are not in China or you don't wanna localize the images.**
+- You need download this repo [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/)
+- extract `static/panorama/images` to `src/public/images` folder.
+- Replace all url `https://raw.githubusercontent.com/ByMykel/counter-strike-image-tracker/main/static/panorama/images` to `/images` in `src/public/js/json/skins/{lang}-skins.json` and `src/public/js/json/skins/{lang}-agents.json`.  
+
+The images folder size will be around `1.16GB`.
+The reason for localizing the images is nothing else, because Github loads slowly in China, so I chose to localize them, you don't need this step if you are not in China.
+
+## 📸Screenshots
+----
+Weapon, agent, knife, glove Skin Plugin from **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints/)**
 
 <div>
     <img src="https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/blob/main/previews/2_1.png?raw=true" width="400">
@@ -19,15 +37,13 @@
 </div>
 
 
-## 在线Demo
-- Demo: [https:/cs.ncii.cn/](https:/cs.ncii.cn/)
+## 🖥️Installation
+---
+#### Dependencies: Node.js *17* or higher version (But I tried Node.js 16, also working fine.)
 
-## 安装
-
-### 依赖: Node.js *17* or 更高版本 （但实测Node.js 16正常）
-
-- **[下载最新Release](https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/releases)**
-- 将 **`src/config.example.json`** 重命名为 **`config.json`** 并且填入相关信息:
+- **[Download the latest Release](https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/releases)**
+- copy **`src/config.example.json`** to **`config.json`** and fill in the information.
+- fill in **`lang`** with **`en`** to use english, other languages please refer to **`src/lang`** folder.
 ```json
 {
     "name": "Title of your website",
@@ -49,15 +65,15 @@
 }
 ```
 
-- 然后运行以下命令:
+- Then run the following commands:
 
-Windows:
+**Windows**:
 ```bash
   npm i
   npm run start
 ```
 
-Linux:
+**Linux**:
 ```bash
   npm i
   npm run startLinux

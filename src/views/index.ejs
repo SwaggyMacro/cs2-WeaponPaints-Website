@@ -1,32 +1,5 @@
 <%- include('./partials/header') %>
-
-<% if (typeof user != 'undefined') { %>
-    <!-- Modal -->
-    <div class="modal fade" id="paymentMethod" tabindex="-1" aria-labelledby="patternFloatLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="background-color: transparent !important;">
-                <div class="modal-header bg-nav text-light border-dark">
-                    <h5 class="modal-title" id="patternFloatLabel">Buy premium</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body bg-color d-flex flex-column text-light">
-                    <p><%= config.payment.info %></p>
-
-                    <p class="m-0">Price <span class="text-success"><%= config.payment.price %></span></p>
-                    <p class="m-0">Period <span class="text-warning"><%= config.payment.months %> months</span></p>
-                    <p class="m-0">Steamid <span class="text-info"><%- user.id %></span></p><br>
-                    <p class="m-0">Contacts <%- config.payment.contacts %></p>
-                    
-                </div>
-                <div class="modal-footer bg-nav text-light border-dark d-flex justify-content-center">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-<% } %>
     
-
     <!-- Modal -->
     <div class="modal fade" id="patternFloat" tabindex="-1" aria-labelledby="patternFloatLabel" aria-hidden="true">
         <div class="modal-dialog">
