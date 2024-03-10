@@ -39,7 +39,7 @@
     },
     "HOST": "example.com or localhost/127.0.0.1",
     "SUBDIR": "/skinsExample/ or just /",
-    "PORT": 27275,
+    "PORT": 27075,
     "STEAMAPIKEY": "Your Steam Web API Key",
     "connect": {
         "show": true,
