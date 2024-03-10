@@ -1,11 +1,20 @@
-let skinsTemp = await fetch(`/js/json/skins/${lang}-skins.json`)
-export let skinsObject = await skinsTemp.json()
+// let skinsTemp = await fetch(`/js/json/skins/${lang}-skins.json`)
+// export let skinsObject = await skinsTemp.json()
 
-let defaultsTemp = await fetch(`/js/json/defaults/${lang}-defaults.json`)
-export let defaultsObject = await defaultsTemp.json()
+// let defaultsTemp = await fetch(`/js/json/defaults/${lang}-defaults.json`)
+// export let defaultsObject = await defaultsTemp.json()
 
-let agentsTemp = await fetch(`/js/json/skins/${lang}-agents.json`)
-export let agentsObject = await agentsTemp.json()
+// let agentsTemp = await fetch(`/js/json/skins/${lang}-agents.json`)
+// export let agentsObject = await agentsTemp.json()
+
+let skinsTemp = await getJSON(`/js/json/skins/${lang}-skins.json`, (err, data) => { return data })
+export let skinsObject = JSON.parse(skinsTemp)
+
+let defaultsTemp = await getJSON(`/js/json/defaults/${lang}-defaults.json`, (err, data) => { return data })
+export let defaultsObject = JSON.parse(defaultsTemp)
+
+let agentsTemp = await getJSON(`/js/json/skins/${lang}-agents.json`, (err, data) => { return data })
+export let agentsObject = JSON.parse(agentsTemp)
 
 const sideBtnHandler = (activeBtn) => {
     // remove active background

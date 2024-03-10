@@ -102,9 +102,6 @@ function lockedMain() {
 
 }
 
-if (!premium) {
-    setInterval(lockedMain, 100)
-}
 
 const adminBtns = document.querySelectorAll('[data-type="adminBtn"]')
 adminBtns.forEach(adminBtn => {
