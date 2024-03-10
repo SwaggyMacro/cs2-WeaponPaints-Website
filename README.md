@@ -1,10 +1,13 @@
-# Requirements
+# 前言
+此项目仅为[cs2-WeaponPaints-website](https://github.com/L1teD/cs2-WeaponPaints-website)的`修改版本`，进行了皮肤图片本地化以及完整的汉化，并优化原有的请求部分 [Prevent an abundance of redundant requests about JSON files.](https://github.com/L1teD/cs2-WeaponPaints-website/pull/12)，原项目会疯狂的进行几十次乃至上百次的请求皮肤武器的JSON文件。
 
-You need to download this repository [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/), and extract `static/panorama/images` to `src/public/images` of this project.
+# 前提需要
 
-# Weapon Paints website
+你需要下载该仓库 [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/), 并且 解压 `static/panorama/images` 至 `src/public/images` 文件夹。
 
-Website used for the **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints/)** plugin
+# 截图
+
+全皮肤、刀、手套插件 使用 **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints/)**
 
 <div>
     <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/1.png?raw=true" width="400">
@@ -14,30 +17,16 @@ Website used for the **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-Weapon
     <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/5.png?raw=true" width="400">
 </div>
 
-Screenshots taken from private version
 
-## Preview
-- Public: https://ws.primat.fun/
-- Private: https://cs.primat.fun/
+## 在线Demo
+- Demo: [https:/cs.ncii.cn/](https:/cs.ncii.cn/)
 
-## Private
-- **[Download latest release](https://github.com/L1teD/cs2-WeaponPaints-website/releases/latest/download/cs2-WeaponPaints-website.zip)**
-- Fill config.json (see below), don't fill appKey in it
-- Start if linux `npm run startLinux` or if windows just open app.exe
-- Then in the console copy your _**UUID**_
-<img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/Screenshot_12.png?raw=true" width="600">
+## 安装
 
-- Then pay **[via DonationAlerts](https://www.donationalerts.com/r/l1te_ )** $20 with a message like “Discord: {discord id} UUID: {uuid}”
+### 依赖: Node.js *17* or 更高版本 （但实测Node.js 16正常）
 
-- After that i'll contact you and send you your app key
-
-**To get admin account go to wps_users, find your account and change admin to 1**
-## Installation
-
-### Requires: Node.js *17* or later
-
-- **[Download latest release](https://github.com/L1teD/cs2-WeaponPaints-website/releases/latest/download/cs2-WeaponPaints-website.zip)**
-- In **`src/`** copy **`config.example.json`** to **`config.json`** and fill it:
+- **[下载最新Release](https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/releases)**
+- 将 **`src/config.example.json`** 重命名为 **`config.json`** 并且填入相关信息:
 ```json
 {
     "name": "Title of your website",
@@ -58,33 +47,17 @@ Screenshots taken from private version
     }
 }
 ```
-- Supported languages **`ru, en, pt-BR`**
 
-- And then
+- 然后运行以下命令:
 
-If Windows:
+Windows:
 ```bash
-  ### public
   npm i
   npm run start
-
-  ### private
-  app.exe
 ```
 
-If Linux:
+Linux:
 ```bash
-  ### public
   npm i
   npm run startLinux
-
-  ### private
-  src/app
-  # if you using pm2
-  pm2 start "npm run startLinux"
 ```
-
-## Support me
-
-
-[![Steam donations](https://github.com/Nereziel/cs2-WeaponPaints/assets/32937653/a0d53822-4ca7-4caf-83b4-e1a9b5f8c94e)](https://steamcommunity.com/tradeoffer/new/?partner=1153616149&token=V-OXvmuV)
