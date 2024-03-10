@@ -1,3 +1,6 @@
+# Requirements
+
+You need to download this repository [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/), and extract `static/panorama/images` to `src/public/images` of this project.
 
 # Weapon Paints website
 
