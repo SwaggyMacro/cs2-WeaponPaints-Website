@@ -41,9 +41,9 @@ Weapon, agent, knife, glove Skin Plugin from **[cs2-WeaponPaints](https://github
 ---
 #### Dependencies: Node.js *17* or higher version (But I tried Node.js 16, also working fine.)
 
-- **[Download the latest Release](https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/releases)**
-- copy **`src/config.example.json`** to **`config.json`** and fill in the information.
-- fill in **`lang`** with **`en`** to use english, other languages please refer to **`src/lang`** folder.
+- **Clone the latest code of this repo.**
+- Copy **`src/config.example.json`** to **`config.json`** and fill in the information.
+- Fill in **`lang`** with **`en`** to use english, other languages please refer to **`src/lang`** folder.
 ```json
 {
     "name": "Title of your website",

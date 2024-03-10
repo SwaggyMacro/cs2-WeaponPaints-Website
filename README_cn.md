@@ -39,7 +39,7 @@
 ---
 #### 依赖: Node.js *17* or 更高版本 （但实测Node.js 16正常）
 
-- **[下载最新Release](https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/releases)**
+- **首先下载本仓库最新代码**
 - 将 **`src/config.example.json`** 重命名为 **`config.json`** 并且填入相关信息.
 - 在 **`lang`** 中填入 **`zh-CN`** 表示使用中文，其他的语言请参考 **`src/lang`** 文件夹。
 ```json
