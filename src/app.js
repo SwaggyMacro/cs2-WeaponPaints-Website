@@ -172,6 +172,21 @@ io.on('connection', socket => {
         
     })
 
+    socket.on('change-glove', data => {
+            connection.query('SELECT * FROM wp_player_gloves WHERE steamid = ?', [data.steamUserId], (err, results, fields) => {
+                if (results.length >= 1) {
+                    connection.query('UPDATE wp_player_gloves SET weapon_defindex = ? WHERE steamid = ?', [data.weaponid, data.steamUserId], (err, results, fields) => {
+                        socket.emit('glove-changed', {knife: data.weaponid})
+                    })
+                } else {
+                    connection.query('INSERT INTO wp_player_gloves (steamid, weapon_defindex) values (?, ?)', [data.steamUserId, data.weaponid], (err, results, fields) => {
+                        socket.emit('glove-changed', {knife: data.weaponid})
+                    })
+                }
+            })
+        
+    })
+
     socket.on('change-skin', data => {
         connection.query('SELECT * FROM wp_player_skins WHERE weapon_defindex = ? AND steamid = ?', [data.weaponid, data.steamid], (err, results, fields) => {
             if (results.length >= 1) {

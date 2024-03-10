@@ -13,11 +13,14 @@
         "SMGs": "SMGs",
         "heavy": "Heavy",
         "ctAgents": "CT Agents",
-        "tAgents": "T Agents"
+        "tAgents": "T Agents",
+        "utility": "Zeus"
     },
     "selectCategory": "Select category",
     "needLogin": "You need to login",
     "viaSteam": "via Steam",
     "change": "Change",
-    "changeSkin": "Change skin"
+    "changeSkin": "Change skin",
+    "setWeapon": "修改皮肤",
+    "defaultSkin": "默认皮肤"
 }

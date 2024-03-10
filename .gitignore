@@ -3,3 +3,4 @@ nonProd/
 sessions/
 src/config.json
 src/views/index -- copy.ejs
+src/public/images

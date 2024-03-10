@@ -14,13 +14,16 @@
         "SMGs": "冲锋枪",
         "heavy": "重型武器",
         "ctAgents": "反恐精英探员",
-        "tAgents": "恐怖分子探员"
+        "tAgents": "恐怖分子探员",
+        "utility": "电击枪"
     },
     "selectCategory": "请选择一个分类",
     "needLogin": "你需要先登陆，才能设置皮肤。",
     "viaSteam": "通过Steam登陆",
     "change": "修改",
     "changeSkin": "修改皮肤",
+    "setWeapon": "选择皮肤",
+    "defaultSkin": "默认皮肤",
     "floatPattern": "磨损与模板",
     "float":"磨损",
     "pattern":"模板",

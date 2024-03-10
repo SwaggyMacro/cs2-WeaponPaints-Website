@@ -1,26 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title><%= lang.title %></title>
+<%- include('./partials/header') %>
 
-    <link rel="stylesheet" href="css/fontawesome/all.min.css">
+<% if (typeof user != 'undefined') { %>
+    <!-- Modal -->
+    <div class="modal fade" id="paymentMethod" tabindex="-1" aria-labelledby="patternFloatLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: transparent !important;">
+                <div class="modal-header bg-nav text-light border-dark">
+                    <h5 class="modal-title" id="patternFloatLabel">Buy premium</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-color d-flex flex-column text-light">
+                    <p><%= config.payment.info %></p>
 
-    <link rel="stylesheet" href="css/bootstrap/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+                    <p class="m-0">Price <span class="text-success"><%= config.payment.price %></span></p>
+                    <p class="m-0">Period <span class="text-warning"><%= config.payment.months %> months</span></p>
+                    <p class="m-0">Steamid <span class="text-info"><%- user.id %></span></p><br>
+                    <p class="m-0">Contacts <%- config.payment.contacts %></p>
+                    
+                </div>
+                <div class="modal-footer bg-nav text-light border-dark d-flex justify-content-center">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<% } %>
     
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="<%= subdir %>js/bootstrap/bootstrap.bundle.min.js"></script>
-    
-    <script src="socket.io/socket.io.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/templates.js"></script>
-    <script src="js/sideBtns.js"></script>
-    
-</head>
-<body class="bg-color">
 
     <!-- Modal -->
     <div class="modal fade" id="patternFloat" tabindex="-1" aria-labelledby="patternFloatLabel" aria-hidden="true">
@@ -52,114 +57,162 @@
                     </div>
                 </div>
                 <div class="modal-footer bg-nav text-light border-dark d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary" onclick="changeParams()" id="modalButton"><%= lang.change %></button>
+                    <button type="button" class="btn btn-outline-primary" onclick="changeParams()" id="modalButton"><%= lang.change %></button>
                 </div>
             </div>
         </div>
     </div>
 
-    <nav class="navbar navbar-dark bg-nav">
-        <div class="container">
-            <div class="nav-item d-flex align-items-center">
-                <a class="navbar-brand" href="#"><%= config.name %></a>      
-                <div class="nav-item d-flex align-items-center">
-                    <% if (config.connect.show) { %>
-                        <a href="<%= config.connect.url %>" class="btn btn-outline-warning rounded-pill d-none d-md-block"><small><%= lang.connect %></small></a>
-                    <% } %>
-                </div>
-            </div>
-            <div class="nav-item d-flex align-items-center">
-                <% if (typeof user == 'undefined') { %>
-                    <a class="btn btn-primary my-2 my-sm-0 text-warning" href="<%= subdir %>api/auth/steam"><%= lang.navLogin %> <i class="bi bi-steam text-secondary ms-1"></i></a>
-                <% } else { %>
-                    <div class="nav-item dropdown" data-bs-theme="dark">
-                        <div class="profile-bg rounded p-1 px-2 d-flex align-items-center dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                            <p class="m-0 me-2"><small><%= user.displayName %></small></p>
-                            <img src="<%= user.photos[1].value%>" alt="" height="30" class="rounded-pill">
-                        </div>
-                            <ul class="dropdown-menu">
-                                
-                                <a class="dropdown-item text-danger" href="<%= subdir %>api/logout"><%= lang.navLogout %></a>
-                                <a class="dropdown-item text-danger" href="<%= subdir %>api/delete"><%= lang.navDelete %></a>
-                                <a class="dropdown-item text-warning d-block d-md-none" href="<%= config.connect.url %>"><small><%= lang.connect %></small></a>
-                            </ul>
-                       
-                <% } %>
-            </div>
-        </div>
-    </nav>
+    
+
+    <%- include('./partials/navbar') %>
 
     <% if (typeof user == 'undefined') { %>
-        <h5 class="text-center mt-4 text-white"><%= lang.needLogin %> <a class="text-warning" href="<%= subdir %>api/auth/steam"><%= lang.viaSteam %></a></h5>
+        <h5 class="text-center mt-4 text-white"><%= lang.needLogin %> <a class="text-accent" href="<%= subdir %>api/auth/steam"><%= lang.viaSteam %></a></h5>
     <% } else { %>
 
     <div class="container text-light mt-3">
         <div class="d-block d-lg-none list-group list-group-horizontal position-relative overflow-auto d-flex justify-content-between bg-nav p-2 rounded">
-            <button onclick="showKnives()" id="sideBtnKnives" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+            <button onclick="showKnives()" id="sideBtnKnives" class="btn btn-outline-primary d-flex my-1 mx-1 align-items-center" data-type="sideBtn" data-btn-type="knives">
                 <img src="icons/weapon_knife_karambit.svg" style="filter: invert();" width="35px">
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.knives %></small></p>
             </button>
 
-            <button onclick="showPistols()" id="sideBtnPistols" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+            <button onclick="showGloves()" id="sideBtnGloves" class="btn btn-outline-primary d-flex my-1 mx-1 align-items-center" data-type="sideBtn" data-btn-type="gloves">
+                <i class="fa-solid fa-mitten ms-1 me-2 my-auto"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.gloves %></small></p>
+            </button>
+
+
+            <button onclick="showPistols()" id="sideBtnPistols" class="btn btn-outline-primary d-flex my-1 mx-1 align-items-center" data-type="sideBtn" data-btn-type="pistols">
                 <img src="icons/weapon_deagle.svg" style="filter: invert();" width="35px">
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.pistols %></small></p>
             </button>
 
-            <button onclick="showRifles()" id="sideBtnRifles" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+            <button onclick="showRifles()" id="sideBtnRifles" class="btn btn-outline-primary d-flex my-1 mx-1 align-items-center" data-type="sideBtn" data-btn-type="rifles">
                 <img src="icons/weapon_ak47.svg" style="filter: invert();" width="35px">
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.rifles %></small></p>
             </button>
 
-            <button onclick="showPPs()" id="sideBtnPPs" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+            <button onclick="showPPs()" id="sideBtnPPs" class="btn btn-outline-primary d-flex my-1 mx-1 align-items-center" data-type="sideBtn" data-btn-type="smgs">
                 <img src="icons/weapon_mac10.svg" style="filter: invert();" width="35px">
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.SMGs %></small></p>
             </button>
 
-            <button onclick="showShotguns()" id="sideBtnShotguns" class="btn btn-primary my-1 mx-1 d-flex align-items-center">
+            <button onclick="showShotguns()" id="sideBtnShotguns" class="btn btn-outline-primary my-1 mx-1 d-flex align-items-center" data-type="sideBtn" data-btn-type="heavy">
                 <img src="icons/weapon_negev.svg" style="filter: invert();" width="35px">
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.heavy %></small></p>
             </button>
         </div>
+
+        <div class="d-block d-lg-none mb-3 list-group list-group-horizontal position-relative overflow-auto d-flex justify-content-between bg-nav p-2 mt-2 rounded">
+            <button onclick="showWorkshop()" id="sideBtnWorkshop" class="btn btn-outline-accent my-1 mx-auto d-flex align-items-center">
+                <i class="fa-solid fa-gavel fa-lg ms-1 me-2 my-auto"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.workshop %></small></p>  
+            </button>
+        </div>
         <div class="row">
             <div class="col-2 rounded p-0 d-none d-lg-block">
+                <div class="sticky-top" style="top: 10px;">
+                    <div class="bg-nav rounded p-0 p-2 pb-0">
+                        <button class="pushable" onclick="showKnives()" data-type="sideBtn" data-btn-type="knives">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnKnives">
+                                    <img src="icons/weapon_knife_karambit.svg" class="ms-2" style="filter: invert();" width="35px">
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.knives %></p>                 
+                            </div>
+                        </button>
 
-                <div class="bg-nav p-0 p-2 rounded">
-                    <button onclick="showKnives()" id="sideBtnKnives" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
-                        <img src="icons/weapon_knife_karambit.svg" style="filter: invert();" width="35px">
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.knives %></small></p>
-                    </button>
+                        <button class="pushable" onclick="showGloves()" data-type="sideBtn" data-btn-type="gloves">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnGloves">
+                                    <i class="fa-solid fa-mitten ms-3 me-2 my-auto"></i>
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.gloves %></p>                 
+                            </div>
+                        </button>
 
-                    <button onclick="showPistols()" id="sideBtnPistols" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
-                        <img src="icons/weapon_deagle.svg" style="filter: invert();" width="35px">
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.pistols %></small></p>
-                    </button>
-    
-                    <button onclick="showRifles()" id="sideBtnRifles" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
-                        <img src="icons/weapon_ak47.svg" style="filter: invert();" width="35px">
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.rifles %></small></p>
-                    </button>
-    
-                    <button onclick="showPPs()" id="sideBtnPPs" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
-                        <img src="icons/weapon_mac10.svg" style="filter: invert();" width="35px">
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.SMGs %></small></p>
-                    </button>
-    
-                    <button onclick="showShotguns()" id="sideBtnShotguns" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
-                        <img src="icons/weapon_negev.svg" style="filter: invert();" width="35px">
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.heavy %></small></p>
-                    </button>
+                        <button class="pushable" onclick="showPistols()" data-type="sideBtn" data-btn-type="pistols">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnPistols">
+                                    <img src="icons/weapon_deagle.svg" class="ms-2" style="filter: invert();" width="35px">
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.pistols %></p>                 
+                            </div>
+                        </button>
 
-                    <button onclick="showCTAgents()" id="sideBtnCTAgents" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
-                        <i class="fa-solid fa-person-rifle ms-2 me-2 my-auto"></i>
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.ctAgents %></small></p>
-                    </button>
+                        <button class="pushable" onclick="showRifles()" data-type="sideBtn" data-btn-type="rifles">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnRifles">
+                                    <img src="icons/weapon_ak47.svg" class="ms-2" style="filter: invert();" width="35px">
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.rifles %></p>                 
+                            </div>
+                        </button>
+        
+                        <button class="pushable" onclick="showPPs()" data-type="sideBtn" data-btn-type="smgs">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnPPs">
+                                    <img src="icons/weapon_mac10.svg" class="ms-2" style="filter: invert();" width="35px">
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.SMGs %></p>                 
+                            </div>
+                        </button>
+
+                        <button class="pushable" onclick="showShotguns()" data-type="sideBtn" data-btn-type="heavy">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnShotguns">
+                                    <img src="icons/weapon_negev.svg" class="ms-2" style="filter: invert();" width="35px">
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.heavy %></p>                 
+                            </div>
+                        </button>
+
+                        <button class="pushable" onclick="showUtility()" data-type="sideBtn" data-btn-type="utility">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnUtility">
+                                    <i class="fa-solid fa-bolt ms-3 me-2 my-auto"></i>
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.utility %></p>                 
+                            </div>
+                        </button>
+
+                        <button class="pushable" onclick="showCTAgents()" data-type="sideBtn" data-btn-type="ctAgents">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnCTAgents">
+                                    <i class="fa-solid fa-person-rifle ms-3 me-2 my-auto"></i>
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.ctAgents %></p>                 
+                            </div>
+                        </button>
+
+                        <button class="pushable" onclick="showTAgents()" data-type="sideBtn" data-btn-type="tAgents">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnTAgents">
+                                    <i class="fa-solid fa-person-rifle ms-3 me-2 my-auto"></i>
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.tAgents %></p>                 
+                            </div>
+                        </button>
+
+                    </div>
                     
-                    <button onclick="showTAgents()" id="sideBtnTAgents" class="btn btn-primary w-100 d-flex align-items-center">
-                        <i class="fa-solid fa-person-rifle ms-2 me-2 my-auto"></i>
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.tAgents %></small></p>
-                    </button>
-                </div>
+                    <!-- <div class="bg-nav rounded p-0 p-2 pb-0 mt-2">
+                        <button class="pushable" onclick="showWorkshop()">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex align-items-center workshop-btn" id="sideBtnWorkshop">
+                                    <i class="fa-solid fa-gavel fa-lg ms-3 me-2 my-auto"></i>
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.workshop %></p>                 
+                            </div>
+                        </button>
+                    </div> -->
 
+
+                    <div class="bg-nav rounded p-0 p-2 pb-0 mt-2" style="display: none;" id="myWorkshopSideGroup"></div>
+                </div>
+                
             </div>
             <div class="col-mb-12 col-lg-10 mb-5">
                 <div class="row" id="skinsContainer">
@@ -174,100 +227,12 @@
     
     <!-- Filler for footer -->
     <div class="container-fluid py-3">
-        <p class="m-0"> </p>
-        <p class="m-0"> </p>
+        <p class="m-0"></p>
     </div>
 
     <div class="container-fluid fixed-bottom bg-nav text-light text-center py-3">
         <p class="text-decoration-none text-light m-0"><%= config.name %> | <%= new Date().getFullYear();%> </p>
-        
-        <!-- Please don't change this -->
-        <p class="m-0 text-secondary">Made by <a href="https://github.com/L1teD/cs2-WeaponPaints-website" target="_blank" class="text-secondary">@L1te</a> Modify by <a href="https://github.com/SwaggyMacro/cs2-WeaponPaints-website" target="_blank" class="text-secondary">@SwaggyMacro</a></p>
+        <p class="m-0 text-secondary">Made by <a href="https://github.com/L1teD/cs2-WeaponPaints-website" target="_blank" class="text-secondary">@L1te</a> Modify by <a href="https://github.com/SwaggyMacro/cs2-WeaponPaints-Web" target="_blank" class="text-secondary">@SwaggyMacro</a></p>
     </div>
 
-</body>
-
-
-
-
-<script>
-    let lang = "<%- config.lang %>";
-    let langObject = <%- JSON.stringify(lang) %>; 
-    let selectedKnife = {
-        knife: undefined,
-        steamid: undefined,
-    }
-    let selectedAgents = {
-        steamid: undefined,
-        agent_t: undefined,
-        agent_ct: undefined
-    }
-</script>
-
-<script>
-    function updateFloatText(value) {
-    let text;
-    if (value >= 0 && value < 0.07) {
-        text = langObject.factoryNew;
-    } else if (value >= 0.07 && value < 0.15) {
-        text = langObject.minimalWear;
-    } else if (value >= 0.15 && value < 0.38) {
-        text = langObject.fieldTested;
-    } else if (value >= 0.38 && value < 0.45) {
-        text = langObject.wellWorn;
-    } else if (value >= 0.45 && value <= 1) {
-        text = langObject.battleScarred;
-    }
-    document.getElementById('floatText').textContent = text;
-}
-</script>
-
-<script>
-    document.getElementById('floatSlider').oninput = function() {
-        document.getElementById('float').value = this.value;
-        updateFloatText(parseFloat(this.value));
-    }
-
-    document.getElementById('float').oninput = function() {
-        document.getElementById('floatSlider').value = this.value;
-        updateFloatText(parseFloat(this.value));
-    }
-</script>
-
-<% if (typeof knife != 'undefined') { %>
-    <script>    
-        selectedKnife = <%- JSON.stringify(knife) %>;
-    </script>
-<% } %>
-
-<% if (typeof skins != 'undefined') { %>
-    <script>    
-        let selectedSkins = <%- JSON.stringify(skins) %>;
-    </script>
-<% } %>
-
-<% if (typeof agents != 'undefined') { %>
-    <script>    
-        selectedAgents = <%- JSON.stringify(agents) %>;
-    </script>
-<% } %>
-
-
-<% if (typeof user != 'undefined') { %>
-    <script>    
-        let user = <%- JSON.stringify(user) %>;
-    </script>
-<% } %>
-
-<script>
-    function setFloat(value) {
-        value = Math.round(value * 10000) / 10000; // Round to 4 decimal places
-        document.getElementById('floatSlider').value = value;
-        document.getElementById('float').value = value;
-        updateFloatText(value);
-    }
-</script>
-
-<script></script>
-
-</html>
+<%- include('./partials/footer') %>

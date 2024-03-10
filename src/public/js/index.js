@@ -56,7 +56,6 @@ const getJsonRequest = function (url) {
       );
     }
   }
-  
 
 function getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
@@ -144,6 +143,7 @@ const weaponIds = {
     "weapon_knife_widowmaker": 523,
     "weapon_knife_skeleton": 525,
     "weapon_knife_kukri": 526,
+    "studded_brokenfang_gloves": 4725,
     "studded_bloodhound_gloves": 5027,
     "t_gloves": 5028,
     "ct_gloves": 5029,
@@ -181,6 +181,162 @@ const changeParams = () => {
     socket.emit('change-params', {steamid: steamid, weaponid: weaponid, paintid: paintid, float: float, pattern: pattern})
 }
 
+const putOnWorkshop = (setId, selected_knife_id, selected_knife, selected_gloves) => {
+    socket.emit('put-on-workshop', {setId: setId, steamid: user.id, selected_knife_id: selected_knife_id, selected_knife: selected_knife, selected_gloves: selected_gloves})
+}
+
+const publishWorkshop = (steamid, set_name) => {
+    socket.emit('publish', {steamid: steamid, set_name: set_name})
+    location.reload()
+}
+
+const updateWorkshop = (steamid, set_id) => {
+    socket.emit('updateWorkshop', {steamid: steamid, set_id: set_id})
+    location.reload()
+}
+
+const removeMyCollection = (set_id, steamid) => {
+    socket.emit('removeWorkshop', {steamid: steamid, set_id: set_id})
+}
+
+let Timer;
+
+const workshopSearch = () => {
+    if (document.getElementById('workshopSearchInput').value == '') {
+        workShopTemplate()
+        socket.emit('get-workshop', {i: 0, steamid: user.id})
+        workshopAmount = 10
+        found = true
+    } else {
+        clearTimeout(Timer);
+        Timer = setTimeout(function () {
+            socket.emit('searchWorkshop', {search: document.getElementById('workshopSearchInput').value})
+        }, 500);
+    }
+}
+
 socket.on('params-changed', () => {
     document.getElementById('modalButton').innerHTML = langObject.change
+})
+
+socket.on('workshopRemoved', () => {
+    location.reload()
+})
+
+/* 
+<button class="pushable" onclick="">
+    <span class="shadow"></span>
+    <span class="edge"></span>
+    <div class="front d-flex align-items-center" id="">
+            <p class="m-0 mx-auto">Workshop name</p>    
+            <a href="" class="text-danger"><i class="fa-regular fa-trash-can me-2"></i></i></a>                 
+    </div>
+</button> 
+*/
+
+// set_name, personaname, selected_knife, selected_gloves, skins, set_id
+
+socket.on('my-workshop-data', data => {
+    const myWorkshops = data.results
+    let i = 0
+    console.log(data)
+    myWorkshops.forEach(element => {
+        let agent_t = (element.agent_t != "") ? element.agent_t : undefined
+        let agent_ct = (element.agent_ct != "") ? element.agent_ct : undefined
+        let button = document.createElement('button')
+        button.classList.add('pushable')
+        button.setAttribute("onclick", `myWorkshop("${element.set_name}", "${element.personaname}", "${element.selected_knife}", ${element.selected_gloves}, {agent_t: '${agent_t}', agent_ct: '${agent_ct}'}, ${JSON.stringify(element.skins)}, ${element.id}, ${element.wore})`);
+        button.innerHTML = `
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <div class="front d-flex align-items-center" id="">
+                    <p class="m-0 mx-auto text-break">${element.set_name}</p>    
+                    <button onclick="removeMyCollection('${element.id}', '${element.steamid}')" class="btn m-0 p-0 text-danger"><i class="fa-regular fa-trash-can mx-2"></i></button>                 
+            </div>
+        `
+
+        document.getElementById('myWorkshopSideGroup').append(button)
+        i++
+    })
+
+    const textColor = (i == 5) ? 'text-danger' : 'text-accent'
+
+    document.getElementById('myWorkshopCount').innerHTML = `Your collections <span class="${textColor}">(${i}/5)</span>:`
+    
+    let addButton = document.createElement('button')
+    addButton.classList.add('pushable')
+    addButton.setAttribute("onclick", "createWorkshop()")
+
+    if (i == 5) {
+        addButton.onclick = function () {}
+        addButton.innerHTML = `
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <div class="front d-flex align-items-center limit-btn" id="">
+                <p class="m-0 mx-auto text-danger">${langObject.limit}</p>                   
+            </div>
+        `
+        document.getElementById('myWorkshopCount').after(addButton)
+    } else {
+        addButton.innerHTML = `
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <div class="front d-flex align-items-center workshop-add-btn" id="">
+                <i class="fa-solid fa-plus fa-lg ms-3 me-2 my-auto text-accent"></i>
+                <p class="m-0 mx-auto text-accent">${langObject.addNew}</p>                   
+            </div>
+        `
+        document.getElementById('myWorkshopCount').after(addButton)
+    }
+})
+
+socket.on('workshop-data', data => {
+
+    document.getElementById('myWorkshopSideGroup').style.display = 'block'
+
+    data.results.forEach(element => {
+        let skins;
+        if (typeof element.skins == 'object') {
+            skins = element.skins
+        } else {
+            skins = JSON.parse(element.skins)
+        }
+
+        if (element.steamid == user.id) {
+            //
+        } else {
+            if (element.steamid != user.id) {
+                workshopElement(element.set_name, element.personaname, element.selected_knife, element.selected_gloves, {agent_t: element.agent_t, agent_ct: element.agent_ct}, skins, element.id, false, element.wore) 
+            }
+        }
+    });
+
+    if (data.results.length == 0) {
+        stopSending = true
+    }
+})
+
+socket.on('workshop-search-data', data => {
+    document.getElementById('skinsContainer').innerHTML = ""
+    data.results.forEach(element => {
+        let skins;
+        if (typeof element.skins == 'object') {
+            skins = element.skins
+        } else {
+            skins = JSON.parse(element.skins)
+        }
+
+        if (element.steamid == user.id) {
+            //
+        } else {
+            if (element.steamid != user.id) {
+                workshopElement(element.set_name, element.personaname, element.selected_knife, element.selected_gloves, {agent_t: element.agent_t, agent_ct: element.agent_ct}, skins, element.id, true, element.wore)
+                console.log(element)
+            }
+        }
+    });
+})
+
+socket.on('putted-on-workshop', () => {
+    location.reload()
 })

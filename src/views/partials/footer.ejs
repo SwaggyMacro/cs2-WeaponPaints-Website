@@ -1,0 +1,176 @@
+</body>
+
+<script src="<%= subdir %>js/bootstrap/bootstrap.min.js"></script>
+<script src="<%= subdir %>js/bootstrap/bootstrap.bundle.min.js"></script>
+
+<script src="<%= subdir %>socket.io/socket.io.js"></script>
+<script src="<%= subdir %>js/index.js"></script>
+
+<script type="module" src="<%= subdir %>js/lockHandler.js"></script>
+
+<script type="module" src="<%= subdir %>js/templates.js"></script>
+<script type="module" src="<%= subdir %>js/sideBtns.js"></script>
+
+<script>
+    let lang = "<%- config.lang %>";
+    let langObject = <%- JSON.stringify(lang) %>; 
+    let selectedKnife = {
+        knife: undefined,
+        steamid: undefined,
+    }
+    let selectedGloves = {
+        weapon_defindex: undefined,
+        steamid: undefined,
+    }
+    let selectedAgents = {
+        agent_ct: undefined,
+        agent_t: undefined,
+        steamid: undefined,
+    }
+</script>
+
+<script>
+    function updateFloatText(value) {
+        let text;
+        if (value >= 0 && value < 0.07) {
+            text = langObject.factoryNew;
+        } else if (value >= 0.07 && value < 0.15) {
+            text = langObject.minimalWear;
+        } else if (value >= 0.15 && value < 0.38) {
+            text = langObject.fieldTested;
+        } else if (value >= 0.38 && value < 0.45) {
+            text = langObject.wellWorn;
+        } else if (value >= 0.45 && value <= 1) {
+            text = langObject.battleScarred;;
+        }
+    document.getElementById('floatText').textContent = text;
+}
+</script>
+
+<script>
+    document.getElementById('floatSlider').oninput = function() {
+        document.getElementById('float').value = this.value;
+        updateFloatText(parseFloat(this.value));
+    }
+
+    document.getElementById('float').oninput = function() {
+        document.getElementById('floatSlider').value = this.value;
+        updateFloatText(parseFloat(this.value));
+    }
+</script>
+
+<% if (typeof knife != 'undefined') { %>
+    <script>    
+        selectedKnife = <%- JSON.stringify(knife) %>;
+    </script>
+<% } %>
+
+<% if (typeof skins != 'undefined') { %>
+    <script>    
+        let selectedSkins = <%- JSON.stringify(skins) %>;
+    </script>
+<% } %>
+
+<% if (typeof gloves != 'undefined') { %>
+    <script>
+        selectedGloves = <%- JSON.stringify(gloves) %>;
+    </script>
+<% } %>
+
+<% if (typeof agents != 'undefined') { %>
+    <script>
+        selectedAgents = <%- JSON.stringify(agents) %>;
+    </script>
+<% } %>
+
+<% if (typeof user != 'undefined') { %>
+    <script>    
+        let user = <%- JSON.stringify(user) %>;
+    </script>
+<% } %>
+
+<script>
+    function setFloat(value) {
+        value = Math.round(value * 10000) / 10000; // Round to 4 decimal places
+        document.getElementById('floatSlider').value = value;
+        document.getElementById('float').value = value;
+        updateFloatText(value);
+    }
+</script>
+
+<script>
+    let found = false
+    let workshopAmount = 0;
+
+    let stopSending = false
+    window.addEventListener("scroll", (event) => {
+        let scroll = this.scrollY;
+        if (isNeedToLoad(scroll) && !stopSending) {
+            socket.emit('get-workshop', {i: workshopAmount, steamid: user.id})
+            workshopAmount += 10
+            found = true
+        }
+    });
+
+    const isNeedToLoad = (scroll) => {
+        const top = document.getElementById('scrollPosElement').getBoundingClientRect().top
+        if (top < window.screen.height) {
+            return true
+        } else {
+            return false
+        }
+    }
+</script>
+
+<script>
+    function searchFunc() {
+        let input = document.getElementById('playersInput').value
+
+        let players = document.getElementsByClassName('playerElement')
+
+        console.log(players)
+
+        for (let i = 0; i < players.length; i++) {
+            const element = players[i];
+            const txtValue = element.querySelector("#playerElementSteamId").innerHTML
+            if (txtValue.toUpperCase().indexOf(input) > -1) {
+                element.style.display = "flex";
+            } else {
+                element.style.display = "none";
+            }
+        }
+
+        
+
+        console.log(input)
+    }
+
+    const updateMyWorkshopPublish = (steamid) => {
+        let workshopName = document.getElementById('myWorkshopName').value
+        workshopName = workshopName.replaceAll(`"`, "`")
+        workshopName = workshopName.replaceAll(`'`, "`")
+
+        console.log(workshopName)
+
+        document.getElementById('myWorkshopPublish').setAttribute("onclick", `publishWorkshop("${steamid}", '${workshopName}')`)
+
+        if (workshopName.length == 0) {
+            console.log('YES')
+            document.getElementById('myWorkshopPublish').disabled = true
+        } else {
+            document.getElementById('myWorkshopPublish').disabled = false
+        }
+
+        if (workshopName.length > 30) {
+            document.getElementById('createWorkshopInputCount').classList.add('text-danger')
+            document.getElementById('createWorkshopInputCount').innerHTML = `<small>${workshopName.length}/30</small>`
+            document.getElementById('myWorkshopPublish').disabled = true
+        } else {
+            document.getElementById('createWorkshopInputCount').classList.remove('text-danger')
+            document.getElementById('createWorkshopInputCount').innerHTML = `<small>${workshopName.length}/30</small>`
+        }
+        
+    }
+</script>
+
+</html>

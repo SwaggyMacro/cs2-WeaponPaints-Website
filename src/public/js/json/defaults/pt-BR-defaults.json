@@ -24,6 +24,14 @@
         "weapon_type": "csgo_inventory_weapon_category_smgs"
     },
     {
+        "weapon_defindex": "31",
+        "weapon_name": "weapon_taser",
+        "paint": "0",
+        "image": "https://static.wikia.nocookie.net/cswikia/images/a/aa/CS2Taserhud.png",
+        "paint_name": "Zeus X27",
+        "weapon_type": "csgo_inventory_weapon_category_utility"
+    },
+    {
         "weapon_defindex": "19",
         "weapon_name": "weapon_p90",
         "paint": "0",
@@ -269,14 +277,6 @@
         "paint": "0",
         "image": "https://raw.githubusercontent.com/Nereziel/cs2-WeaponPaints/main/website/img/skins/weapon_revolver.png",
         "paint_name": "Revólver R8",
-        "weapon_type": "csgo_inventory_weapon_category_pistols"
-    },
-    {
-    "weapon_defindex": "31",
-        "weapon_name": "weapon_taser",
-        "paint": "0",
-        "image": "https://static.wikia.nocookie.net/cswikia/images/a/aa/CS2Taserhud.png",
-        "paint_name": "Zeus X27",
         "weapon_type": "csgo_inventory_weapon_category_pistols"
     },
     {

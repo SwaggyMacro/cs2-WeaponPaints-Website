@@ -1,0 +1,30 @@
+<nav class="navbar navbar-dark bg-nav">
+    <div class="container">
+        <div class="nav-item d-flex align-items-center">
+            <a class="navbar-brand" href="<%= subdir %>"><%= config.name %></a>      
+            <div class="nav-item d-flex align-items-center">
+                <% if (config.connect.show) { %>
+                    <a href="<%= config.connect.url %>" class="btn btn-outline-accent rounded-pill d-none d-md-block"><small><%= lang.connect %></small></a>
+                <% } %>
+            </div>
+        </div>
+        <div class="nav-item d-flex align-items-center">
+            <% if (typeof user == 'undefined') { %>
+                <a class="btn btn-outline-primary my-2 my-sm-0" href="<%= subdir %>api/auth/steam"><%= lang.navLogin %> <i class="bi bi-steam text-secondary ms-1"></i></a>
+            <% } else { %>
+
+
+                <div class="nav-item dropdown" data-bs-theme="dark">
+                    <div class="profile-bg rounded p-1 px-2 d-flex align-items-center dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                        <p class="m-0 me-2"><small><%= user.displayName %></small></p>
+                        <img src="<%= user.photos[1].value%>" alt="" height="30" class="rounded-pill">
+                    </div>
+                    <ul class="dropdown-menu">
+                        <a class="dropdown-item text-danger" href="<%= subdir %>api/logout"><%= lang.navLogout %></a>
+                        <a class="dropdown-item text-danger" href="<%= subdir %>api/delete"><%= lang.navDelete %></a>
+                        <a class="dropdown-item text-warning d-block d-md-none" href="<%= config.connect.url %>"><small><%= lang.connect %></small></a>
+                    </ul>
+            <% } %>
+        </div>
+    </div>
+</nav>
