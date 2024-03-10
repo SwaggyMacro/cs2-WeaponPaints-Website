@@ -1,4 +1,5 @@
 {
+    "title": "Skin Chooser",
     "navLogin": "Login",
     "navLogout": "Logout",
     "navDelete": "Delete account",
@@ -21,6 +22,19 @@
     "viaSteam": "via Steam",
     "change": "Change",
     "changeSkin": "Change skin",
-    "setWeapon": "修改皮肤",
-    "defaultSkin": "默认皮肤"
+    "setWeapon": "Change",
+    "defaultSkin": "Default",
+    "floatPattern": "Float pattern",
+    "float":"Float",
+    "pattern":"Pattern",
+    "factoryNew":"Factory New",
+    "minimalWear":"Minimal Wear",
+    "fieldTested":"Field-Tested",
+    "wellWorn":"Well-Worn",
+    "battleScarred":"Battle-Scarred",
+    "factoryNewCode":"FN",
+    "minimalWearCode":"MW",
+    "fieldTestedCode":"FT",
+    "wellWornCode":"WW",
+    "battleScarredCode":"BS"
 }

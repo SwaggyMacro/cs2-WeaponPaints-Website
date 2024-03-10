@@ -12,11 +12,10 @@
 全皮肤、刀、手套插件 使用 **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints/)**
 
 <div>
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/1.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/2.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/3.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/4.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/5.png?raw=true" width="400">
+    <img src="https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/blob/main/previews/2_1.png?raw=true" width="400">
+    <img src="https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/blob/main/previews/2_2.png?raw=true" width="400">
+    <img src="https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/blob/main/previews/2_3.png?raw=true" width="400">
+    <img src="https://github.com/SwaggyMacro/cs2-WeaponPaints-Web/blob/main/previews/2_4.png?raw=true" width="400">
 </div>
 
 

@@ -19,5 +19,20 @@
     "needLogin": "Você precisa fazer login",
     "viaSteam": "via Steam",
     "change": "Alterar",
-    "changeSkin": "Alterar Skin"
+    "changeSkin": "Alterar Skin",
+    "setWeapon": "Set Weapon",
+    "defaultSkin": "Skin Padrão",
+    "floatPattern": "Float & Pattern",
+    "float":"Float",
+    "pattern":"Pattern",
+    "factoryNew":"Factory New",
+    "minimalWear":"Minimal Wear",
+    "fieldTested":"Field-Tested",
+    "wellWorn":"Well-Worn",
+    "battleScarred":"Battle-Scarred",
+    "factoryNewCode":"FN",
+    "minimalWearCode":"MW",
+    "fieldTestedCode":"FT",
+    "wellWornCode":"WW",
+    "battleScarredCode":"BS"
 }

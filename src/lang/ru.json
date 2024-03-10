@@ -19,5 +19,20 @@
     "needLogin": "Нужно войти",
     "viaSteam": "через Steam",
     "change": "Сменить",
-    "changeSkin": "Сменить скин"
+    "changeSkin": "Сменить скин",
+    "setWeapon": "Выберите оружие",
+    "defaultSkin": "Стандартный скин",
+    "floatPattern": "Float и Pattern",
+    "float":"Float",
+    "pattern":"Pattern",
+    "factoryNew":"Factory Ne",
+    "minimalWear":"Minimal Wear",
+    "fieldTested":"Field-Tested",
+    "wellWorn":"Well-Worn",
+    "battleScarred":"Battle-Scarred",
+    "factoryNewCode":"FN",
+    "minimalWearCode":"MW",
+    "fieldTestedCode":"FT",
+    "wellWornCode":"WW",
+    "battleScarredCode":"BS"
 }
