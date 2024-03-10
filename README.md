@@ -1,5 +1,5 @@
 # 前言
-此项目仅为[cs2-WeaponPaints-website](https://github.com/L1teD/cs2-WeaponPaints-website)的`修改版本`，进行了皮肤图片本地化以及完整的汉化，并优化原有的请求部分 [Prevent an abundance of redundant requests about JSON files.](https://github.com/L1teD/cs2-WeaponPaints-website/pull/12)，原项目会疯狂的进行几十次乃至上百次的请求皮肤武器的JSON文件。
+此项目仅为[cs2-WeaponPaints-website](https://github.com/L1teD/cs2-WeaponPaints-website)的`修改版本`，进行了皮肤图片本地化以及完整的汉化，并添加`修改手套`支持，以及优化原有的请求部分 [Prevent an abundance of redundant requests about JSON files.](https://github.com/L1teD/cs2-WeaponPaints-website/pull/12)，原项目会疯狂的进行几十次乃至上百次的请求皮肤武器的JSON文件。
 
 # 前提需要
 
