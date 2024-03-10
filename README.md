@@ -8,7 +8,6 @@
 </p>
 
 ## 🗣️Preface
-----
 This repo is a **`modified version`** of [cs2-WeaponPaints-website](https://github.com/L1teD/cs2-WeaponPaints-website), which has localized skin images(Chinese Language Only) and complete Chinese translation, as well as added support for **`glove change`**, and optimized the original request part [Prevent an abundance of redundant requests about JSON files.](https://github.com/L1teD/cs2-WeaponPaints-website/pull/12), the original project will make dozens of requests for JSON files of skin weapons.
 
 Btw, the original project got a private plan, You guys can donate to the original author to get the private plan. The private plan has more features like `gloves change`, workshop(Idk what's this, It seems like a backend that can be used to manage the user's skins, but I'm not sure about this.).
@@ -16,7 +15,6 @@ Btw, the original project got a private plan, You guys can donate to the origina
 **This repo is a modified version, which adds the function of changing gloves to the `public` version of the original project and some optimizations. If you need the private plan, Please go to the original author's repository.**
 
 ## 📝Before Start
-----
 **You can step out of this section if you are not in China or you don't wanna localize the images.**
 - You need download this repo [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/)
 - extract `static/panorama/images` to `src/public/images` folder.
@@ -26,7 +24,6 @@ The images folder size will be around `1.16GB`.
 The reason for localizing the images is nothing else, because Github loads slowly in China, so I chose to localize them, you don't need this step if you are not in China.
 
 ## 📸Screenshots
-----
 Weapon, agent, knife, glove Skin Plugin from **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints/)**
 
 <div>
@@ -38,7 +35,6 @@ Weapon, agent, knife, glove Skin Plugin from **[cs2-WeaponPaints](https://github
 
 
 ## 🖥️Installation
----
 #### Dependencies: Node.js *17* or higher version (But I tried Node.js 16, also working fine.)
 
 - **Clone the latest code of this repo.**
