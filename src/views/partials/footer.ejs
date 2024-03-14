@@ -27,6 +27,10 @@
         agent_t: undefined,
         steamid: undefined,
     }
+    let selectedMusic = {
+        music_id: undefined,
+        steamid: undefined,
+    }
 </script>
 
 <script>
@@ -80,6 +84,12 @@
 <% if (typeof agents != 'undefined') { %>
     <script>
         selectedAgents = <%- JSON.stringify(agents) %>;
+    </script>
+<% } %>
+
+<% if (typeof musics != 'undefined') { %>
+    <script>
+        selectedMusic = <%- JSON.stringify(musics) %>;
     </script>
 <% } %>
 

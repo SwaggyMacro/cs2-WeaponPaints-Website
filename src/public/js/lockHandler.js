@@ -102,7 +102,6 @@ function lockedMain() {
 
 }
  
-
 const adminBtns = document.querySelectorAll('[data-type="adminBtn"]')
 adminBtns.forEach(adminBtn => {
     if (blackButtons.includes(adminBtn.getAttribute('id'))) {

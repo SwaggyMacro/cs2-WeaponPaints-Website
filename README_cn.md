@@ -11,7 +11,13 @@
 此项目仅为[cs2-WeaponPaints-website](https://github.com/L1teD/cs2-WeaponPaints-website)的`修改版本`，进行了皮肤图片本地化以及完整的汉化，并添加`修改手套`支持，以及优化原有的请求部分 [Prevent an abundance of redundant requests about JSON files.](https://github.com/L1teD/cs2-WeaponPaints-website/pull/12)，原项目会疯狂的请求皮肤武器的JSON文件。
 
 另外，原项目有一个`private`版本，你可以捐赠原作者以获得`private`版本。该版本可能有更多功能，如`手套更换`，`Workshop`（我不懂这是什么，似乎是一个后端，可以用来管理用户的皮肤，不确定。）
-**本仓库仅为修改版本，在原项目的`public`版本增加了修改手套的功能以及些许优化，原作者仓库请移步。**
+**本仓库仅为修改版本，原作者仓库请移步。**
+
+#### 修改清单:
+- 本地化皮肤、探员等图片（如果你不在国内，你不需要这个，因为github的图片资源在国内加载慢）
+- 支持 **`手套更换`**
+- 支持 **`音乐盒更换`**
+- 优化原项目HTTP请求部分
 
 ## 📝前提需要
 你需要下载该仓库 [counter-strike-image-tracker](https://github.com/ByMykel/counter-strike-image-tracker/), 并且 解压 `static/panorama/images` 至 `src/public/images` 文件夹。

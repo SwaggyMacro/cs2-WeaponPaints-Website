@@ -152,7 +152,7 @@ const weaponIds = {
     "leather_handwraps": 5032,
     "motorcycle_gloves": 5033,
     "specialist_gloves": 5034,
-    "studded_hydra_gloves": 5035
+    "studded_hydra_gloves": 5035,
 }
 
 const editModal = (img, weaponName, paintName, weaponId, paintId) => {

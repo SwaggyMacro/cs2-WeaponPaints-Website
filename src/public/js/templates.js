@@ -1,4 +1,4 @@
-import { skinsObject, defaultsObject, agentsObject } from './sideBtns.js'
+import { skinsObject, defaultsObject, agentsObject, musicObject } from './sideBtns.js'
 
 window.defaultsTemplate = (weapon, langObject, lang) => {
     let card = document.createElement('div')
@@ -551,7 +551,6 @@ window.showAgents = (type) => {
     document.getElementById('skinsContainer').innerHTML = ''
 
     agentsObject.forEach(element => {
-        console.log(element.team, team.type)
         if (element.team == team[type]) {
             let rarities = {
                 "#b0c3d9": "common",
@@ -604,6 +603,64 @@ window.showAgents = (type) => {
 
             document.getElementById('skinsContainer').appendChild(card)
         }
+    });
+
+}
+
+window.showMusics = () =>{
+    // clear main container
+    document.getElementById('skinsContainer').innerHTML = ''
+
+    musicObject.forEach(element => {
+        let rarities = {
+            "#b0c3d9": "common",
+            "#5e98d9": "uncommon",
+            "#4b69ff": "rare",
+            "#8847ff": "mythical",
+            "#d32ce6": "legendary",
+            "#eb4b4b": "ancient",
+            "#e4ae39": "contraband"
+        }
+
+        let bgColor = 'card-uncommon'
+        let phase  = ''
+        let active = ''
+        let steamid = user.id
+
+        // Make outline if this skin is selected
+        if (selectedMusic.music_id == element.id) {
+            active = 'active-card'
+        }
+        
+        let card = document.createElement('div')
+        card.classList.add('col-6', 'col-sm-4', 'col-md-3', 'p-2')
+
+        card.innerHTML = `
+            <div onclick="changeMusic(\'${steamid}\', \'${element.id}\')" id="music-${element.id}" class="weapon-card rounded-3 d-flex flex-column ${active} ${bgColor} contrast-reset pb-2" data-type="skinCard" data-btn-type="">
+                <div style="z-index: 3;" class="locked-card d-flex flex-column justify-content-center align-items-center w-100 h-100" id="">
+                    <i class="fa-solid fa-lock"></i>
+                    <p class="m-0">Buy Premium</p>
+                </div>
+            
+                <div style="z-index: 3;" class="loading-card d-flex justify-content-center align-items-center w-100 h-100" id="loading-${element.id}">
+                    <div class="spinner-border spinner-border-xl" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <img src="${element.image}" class="weapon-img mx-auto my-3" loading="lazy" width="181px" height="136px" alt=" ">
+                
+                <div class="d-flex align-items-center g-3">
+                
+                </div>
+                
+                <h5 class="weapon-skin-title text-roboto ms-3">
+                    ${element.name}
+                </h5>
+            </div>
+        `
+
+        document.getElementById('skinsContainer').appendChild(card)
     });
 
 }

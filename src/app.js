@@ -88,6 +88,7 @@ app.get(config.SUBDIR, (req, res) => {
         connection.query('SELECT * FROM wp_player_knife WHERE steamid = ?', [req.user.id], (err, results, fields) => {
             connection.query('SELECT * FROM wp_player_skins WHERE steamid = ?', [req.user.id], (err, results2, fields) => {
                 connection.query('SELECT * FROM wp_player_agents WHERE steamid = ?', [req.user.id], (err, results3, fields) => {
+                    connection.query('SELECT * FROM wp_player_music WHERE steamid = ?', [req.user.id], (err, results4, fields) => {
                     res.render('index', {
                         config: config,
                         session: req.session,
@@ -95,12 +96,14 @@ app.get(config.SUBDIR, (req, res) => {
                         knife: results[0],
                         skins: results2,
                         agents: results3[0],
+                        musics: results4[0],
                         lang: lang,
                         subdir: config.SUBDIR
                     })
                 })
             })
         })
+    })
     } else {
         res.render('index', {config: config, session: req.session, user: req.user, lang: lang, subdir: config.SUBDIR})
     }
@@ -186,6 +189,21 @@ io.on('connection', socket => {
             })
         
     })
+
+    socket.on('change-music', data => {
+        connection.query('SELECT * FROM wp_player_music WHERE steamid = ?', [data.steamid], (err, results, fields) => {
+            if (results.length >= 1) {
+                connection.query('UPDATE wp_player_music SET music_id = ? WHERE steamid = ?', [data.id, data.steamid], (err, results, fields) => {
+                    socket.emit('music-changed', {music: data.id})
+                })
+            } else {
+                connection.query('INSERT INTO wp_player_music (steamid, music_id) values (?, ?)', [data.steamid, data.id], (err, results, fields) => {
+                    socket.emit('music-changed', {music: data.id})
+                })
+            }
+        })
+    
+})
 
     socket.on('change-skin', data => {
         connection.query('SELECT * FROM wp_player_skins WHERE weapon_defindex = ? AND steamid = ?', [data.weaponid, data.steamid], (err, results, fields) => {

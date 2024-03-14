@@ -56,6 +56,11 @@
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.gloves %></small></p>
             </button>
 
+            <button onclick="showMusics()" id="sideBtnMusics" class="btn btn-outline-primary d-flex my-1 mx-1 align-items-center" data-type="sideBtn" data-btn-type="musics">
+                <i class="fa-solid fa-music ms-1 me-2 my-auto"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.musics %></small></p>
+            </button>
+
 
             <button onclick="showPistols()" id="sideBtnPistols" class="btn btn-outline-primary d-flex my-1 mx-1 align-items-center" data-type="sideBtn" data-btn-type="pistols">
                 <img src="icons/weapon_deagle.svg" style="filter: invert();" width="35px">
@@ -103,6 +108,15 @@
                             <div class="front d-flex" id="sideBtnGloves">
                                     <i class="fa-solid fa-mitten ms-3 me-2 my-auto"></i>
                                     <p class="m-0 mx-auto"><%= lang.sideMenu.gloves %></p>                 
+                            </div>
+                        </button>
+
+                        <button class="pushable" onclick="showMusics()" data-type="sideBtn" data-btn-type="musics">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <div class="front d-flex" id="sideBtnMusics">
+                                    <i class="fa-solid fa-music ms-3 me-2 my-auto"></i>
+                                    <p class="m-0 mx-auto"><%= lang.sideMenu.musics %></p>                 
                             </div>
                         </button>
 

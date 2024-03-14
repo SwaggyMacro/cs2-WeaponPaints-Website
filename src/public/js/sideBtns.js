@@ -26,12 +26,18 @@ export let agentsObject = await getCachedOrFetch(
   `/js/json/skins/${lang}-agents.json`,
   `${lang}-agents`
 );
+export let musicObject = await getCachedOrFetch(
+  `/js/json/skins/${lang}-music.json`,
+  `${lang}-music`
+);
+
 
 const sideBtnHandler = (activeBtn) => {
   // remove active background
   let allBtns = [
     "sideBtnKnives",
     "sideBtnGloves",
+    "sideBtnMusics",
     "sideBtnPistols",
     "sideBtnRifles",
     "sideBtnPPs",
@@ -49,6 +55,7 @@ const sideBtnHandler = (activeBtn) => {
   });
   document.getElementById("sideBtnKnives").classList.remove("active-side");
   document.getElementById("sideBtnGloves").classList.remove("active-side");
+  document.getElementById("sideBtnMusics").classList.remove("active-side");
   document.getElementById("sideBtnPistols").classList.remove("active-side");
   document.getElementById("sideBtnRifles").classList.remove("active-side");
   document.getElementById("sideBtnPPs").classList.remove("active-side");
@@ -132,6 +139,11 @@ const showGloves = () => {
   showDefaults("sfui_invpanel_filter_gloves");
 };
 
+const showMusics = () => {
+  sideBtnHandler("sideBtnMusics");
+  //showMusic();
+};
+
 const showPistols = () => {
   sideBtnHandler("sideBtnPistols");
   showDefaults("csgo_inventory_weapon_category_pistols");
@@ -188,6 +200,7 @@ const showWorkshop = () => {
 
 window.showKnives = showKnives;
 window.showGloves = showGloves;
+window.showMusics = showMusics;
 window.showPistols = showPistols;
 window.showRifles = showRifles;
 window.showSniperRifles = showSniperRifles;
@@ -208,6 +221,9 @@ sideBtns.forEach((btn) => {
       break;
     case "gloves":
       btn.addEventListener("click", showGloves);
+      break;
+    case "musics":
+      btn.addEventListener("click", showMusics);
       break;
     case "pistols":
       btn.addEventListener("click", showPistols);
@@ -266,6 +282,13 @@ window.changeAgent = (steamid, model, team) => {
   socket.emit("change-agent", { steamid: steamid, model: model, team: team });
   document.getElementById(`loading-${model}`).style.visibility = "visible";
   document.getElementById(`loading-${model}`).style.opacity = 1;
+};
+
+window.changeMusic = (steamid, id) => {
+  console.log(steamid, id);
+  socket.emit("change-music", { steamid: steamid, id: id });
+  document.getElementById(`loading-${id}`).style.visibility = "visible";
+  document.getElementById(`loading-${id}`).style.opacity = 1;
 };
 
 window.resetSkin = (weaponid, steamid) => {
@@ -390,6 +413,22 @@ socket.on("agent-changed", (data) => {
     .classList.add("active-card");
   document.getElementById(`loading-${data.currentAgent}`).style.opacity = 0;
   document.getElementById(`loading-${data.currentAgent}`).style.visibility =
+    "hidden";
+});
+
+socket.on("music-changed", (data) => {
+  let elms = document.getElementsByClassName("weapon-card");
+
+  for (var i = 0; i < elms.length; i++) {
+    elms[i].classList.remove("active-card");
+  }
+
+  selectedMusic.music_id = data.music;
+  document
+    .getElementById(`music-${data.music}`)
+    .classList.add("active-card");
+  document.getElementById(`loading-${data.music}`).style.opacity = 0;
+  document.getElementById(`loading-${data.music}`).style.visibility =
     "hidden";
 });
 
