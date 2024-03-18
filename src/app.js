@@ -46,6 +46,13 @@ setInterval(() => {
     connection.query('SELECT 1', (err, res, fields) => {})
 }, 10000);
 
+// generate random secret if not set
+randomSecret = () => {
+    // crypto
+    const crypto = require('crypto')
+    return crypto.randomBytes(32).toString('hex')
+}
+
 app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'ejs')
 app.use(express.static('src/public'))
@@ -73,7 +80,7 @@ passport.use(new SteamStrategy({
 ));
 app.use(session({
     store: new FileStore(fileStoreOptions),
-    secret: 'Whatever_You_Want',
+    secret: config.secret ? config.secret : randomSecret(),
     saveUninitialized: true,
     resave: false,
     cookie: {
